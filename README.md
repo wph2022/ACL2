@@ -1,16 +1,11 @@
 # ACL2
 
-已按要求将项目重构为以下结构：
+当前仓库为 `ChargeAutoTool` 规则驱动重构版本：
 
-- `ChargeAutoTool/run.py`
-- `ChargeAutoTool/app_controller.py`
-- `ChargeAutoTool/app_state.py`
-- `ChargeAutoTool/features.py`
-- `ChargeAutoTool/services.py`
-- `ChargeAutoTool/ui/*`
-- `ChargeAutoTool/rules/*`
+- 六大能力（日志搜索 / healthd / vbat / 曲线 / AI 协议 / 寄存器）全部由 `ChargeAutoTool/rules/rules.json` 配置驱动。
+- 主程序采用单总控结构：`app_controller.py + app_state.py + features.py + services.py`。
 
-运行方式：
+运行：
 
 ```bash
 python -m ChargeAutoTool.run

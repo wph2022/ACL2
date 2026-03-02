@@ -1,8 +1,34 @@
 {
-  "ai_protocol_tags": ["REQ", "RSP", "ERR", "TIMEOUT"],
-  "register_map": {
-    "0x10": "CHG_STATUS",
-    "0x11": "VBAT_LIMIT",
-    "0x12": "TEMP_STATUS"
+  "log_search": {
+    "keywords": ["error", "fail", "timeout"],
+    "ignore_case": true,
+    "max_items": 200
+  },
+  "healthd": {
+    "patterns": [
+      "healthd:\\s*(.*)",
+      "battery\\s+health:\\s*(.*)"
+    ],
+    "max_items": 100
+  },
+  "vbat": {
+    "pattern": "vbat[:=]\\s*(\\d+)",
+    "group": 1
+  },
+  "curve": {
+    "pattern": "(\\d+)\\s*,\\s*(\\d+)",
+    "x_group": 1,
+    "y_group": 2
+  },
+  "ai_protocol": {
+    "tokens": ["REQ", "RSP", "ERR", "TIMEOUT", "PD", "QC"],
+    "ignore_case": false
+  },
+  "register": {
+    "items": [
+      {"address": "0x10", "name": "CHG_STATUS"},
+      {"address": "0x11", "name": "VBAT_LIMIT"},
+      {"address": "0x12", "name": "TEMP_STATUS"}
+    ]
   }
 }

@@ -9,6 +9,8 @@ from .ui.main_window import MainWindow
 
 
 class AppController:
+    MODE_KEYS = ["log_search", "healthd", "vbat", "curve", "ai_protocol", "register"]
+
     def __init__(self, window: MainWindow):
         self.window = window
         self.state = AppState()
@@ -38,21 +40,12 @@ class AppController:
 
         text = self.io.read_file(self.state.selected_file)
         mode_index = next((i for i, b in enumerate(self.window.mode_selector.buttons) if b.isChecked()), 0)
+        mode_key = self.MODE_KEYS[mode_index] if mode_index < len(self.MODE_KEYS) else "log_search"
 
-        if mode_index == 0:
-            result = self.features.search_log(text, "error")
-        elif mode_index == 1:
-            result = self.features.parse_healthd(text)
-        elif mode_index == 2:
-            result = self.features.parse_vbat(text)
-        elif mode_index == 3:
-            points = self.features.generate_curve_points(text)
-            self.window.plot_view.show_points(points)
-            result = {"curve_points": len(points)}
-        elif mode_index == 4:
-            result = self.features.analyze_ai_protocol(text)
-        else:
-            result = self.features.analyze_register_dump(text)
+        result = self.features.run(mode_key, text)
+        if mode_key == "curve":
+            self.window.plot_view.show_points(result.get("points", []))
 
-        self.state.parse_result = result if isinstance(result, dict) else {"lines": result[:100]}
+        self.state.mode = mode_key
+        self.state.parse_result = result
         self.window.result_view.set_result(json.dumps(self.state.parse_result, ensure_ascii=False, indent=2))

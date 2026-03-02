@@ -1,6 +1,11 @@
 {
-  "chip": "mtk",
-  "register_map": {
-    "0x20": "MTK_MODE"
+  "ai_protocol": {
+    "tokens": ["REQ", "RSP", "MTK_PD", "MTK_ERR"]
+  },
+  "register": {
+    "items": [
+      {"address": "0x20", "name": "MTK_MODE"},
+      {"address": "0x21", "name": "MTK_TEMP"}
+    ]
   }
 }
