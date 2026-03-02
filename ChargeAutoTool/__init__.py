@@ -1,0 +1,1 @@
+"""ChargeAutoTool application package."""
