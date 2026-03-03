@@ -1,0 +1,11 @@
+{
+  "ai_protocol": {
+    "tokens": ["REQ", "RSP", "QC2", "QC3", "PD", "ERR"]
+  },
+  "register": {
+    "items": [
+      {"address": "0x30", "name": "QCOM_MODE"},
+      {"address": "0x31", "name": "QCOM_FAULT"}
+    ]
+  }
+}
